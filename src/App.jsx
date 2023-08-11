@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react';
-import './App.scss';
+import style from './App.module.scss';
 
 function App() {
   const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "black", "white"];
-  const [color, setColor] = useState("yellow");
+  const [color, setColor] = useState();
 
   const changeColor = () => {
-    document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    const newColor = colors[Math.floor(Math.random() * colors.length)];
+    setColor(newColor);
+    document.body.style.backgroundColor = newColor;
   }
 
   useEffect(() => {
     changeColor();
-  }, [color]);
+  }, []);
 
   return (
-    <div>
-      <div>
-        <h1>Background Color: Red</h1>
+    <div className={style.firstLayer}>
+      <div className={style.secondLayer}>
+        <h1 > Background Color: {color} </h1>
       </div>
-      <button onClick={changeColor}>Change Background Color</button>      
+      <button onClick={()=>changeColor()}>Change Background Color</button>      
     </div>
   );
 }
